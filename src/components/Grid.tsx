@@ -1,33 +1,35 @@
-import type React from "react"
+import React, { ReactNode } from "react";
 
-type GridProps = {
-  children: React.ReactNode
-  cols: number
-  sm?: number
-  md?: number
-  lg?: number
-  xl?: number
-  className?: string
-}
+type Props = {
+  cols: number;
+  sm?: number;
+  md?: number;
+  lg?: number;
+  xl?: number;
+  className?: string;
+  children: ReactNode;
+};
 
-export function Grid({ children, cols, sm, md, lg, xl, className }: GridProps) {
-  const gridTemplateColumns = `repeat(${cols}, minmax(0, 1fr))`
+const Grid = ({
+  children,
+  cols = 1,
+  sm,
+  md,
+  lg,
+  xl,
+  className = "",
+}: Props) => {
+  return (
+    <div
+      className={`grid grid-cols-${cols} ${
+        sm ? `sm:grid-cols-${sm}` : ""
+      } ${md ? `md:grid-cols-${md}` : ""} ${lg ? `lg:grid-cols-${lg}` : ""} ${
+        xl ? `xl:grid-cols-${xl}` : ""
+      } gap-4 ${className}`}
+    >
+      {children}
+    </div>
+  );
+};
 
-  const responsiveClasses = []
-
-  if (sm) {
-    responsiveClasses.push(`sm:grid-cols-${sm}`)
-  }
-  if (md) {
-    responsiveClasses.push(`md:grid-cols-${md}`)
-  }
-  if (lg) {
-    responsiveClasses.push(`lg:grid-cols-${lg}`)
-  }
-  if (xl) {
-    responsiveClasses.push(`xl:grid-cols-${xl}`)
-  }
-
-  return <div className={`grid ${responsiveClasses.join(" ")} ${className || ""}`}>{children}</div>
-}
-
+export default Grid;

@@ -1,14 +1,16 @@
-import {ProductCard} from "@/components/Card";
-import { Grid }  from "@/components/Grid";
+import { ProductCard } from "@/components/Card";
+import  Grid  from "@/components/Grid";
 import React from "react";
 import useGetProducts from "@/features/Store/useGetProducts";
 import { ProductType } from "@/features/Products/productForm";
-type Props = {};
+import { useDispatch, useSelector } from "react-redux";
+import { addProdut,removeProduct } from "@/features/Store/CartSlice";
 
-const Store = (props: Props) => {
-
-  const {products ,error,isLoading} = useGetProducts()
-  
+const Store = () => {
+  const { products, error, isLoading } = useGetProducts();
+  const cart = useSelector((e)=>e.cart)
+  const dispatch = useDispatch()
+  console.log(cart)
 
   const products2 = [
     {
@@ -26,7 +28,8 @@ const Store = (props: Props) => {
     {
       id: "2",
       title: "Organic Cotton T-Shirt",
-      description: "Soft, breathable organic cotton t-shirt with a relaxed fit and sustainable production methods.",
+      description:
+        "Soft, breathable organic cotton t-shirt with a relaxed fit and sustainable production methods.",
       price: 29.99,
       image: "/placeholder.svg?height=300&width=300",
       category: "Clothing",
@@ -36,7 +39,8 @@ const Store = (props: Props) => {
     {
       id: "3",
       title: "Smart Home Security Camera",
-      description: "HD security camera with motion detection, night vision, two-way audio, and smartphone notifications.",
+      description:
+        "HD security camera with motion detection, night vision, two-way audio, and smartphone notifications.",
       price: 129.99,
       image: "/placeholder.svg?height=300&width=300",
       category: "Smart Home",
@@ -47,7 +51,8 @@ const Store = (props: Props) => {
     {
       id: "4",
       title: "Stainless Steel Water Bottle",
-      description: "Double-walled insulated water bottle that keeps drinks cold for 24 hours or hot for 12 hours.",
+      description:
+        "Double-walled insulated water bottle that keeps drinks cold for 24 hours or hot for 12 hours.",
       price: 34.99,
       image: "/placeholder.svg?height=300&width=300",
       category: "Kitchen",
@@ -57,7 +62,8 @@ const Store = (props: Props) => {
     {
       id: "5",
       title: "Ergonomic Office Chair",
-      description: "Adjustable office chair with lumbar support, breathable mesh back, and comfortable cushioned seat.",
+      description:
+        "Adjustable office chair with lumbar support, breathable mesh back, and comfortable cushioned seat.",
       price: 249.99,
       image: "/placeholder.svg?height=300&width=300",
       category: "Furniture",
@@ -68,7 +74,8 @@ const Store = (props: Props) => {
     {
       id: "6",
       title: "Ceramic Plant Pot Set",
-      description: "Set of 3 minimalist ceramic plant pots in varying sizes, perfect for indoor plants and succulents.",
+      description:
+        "Set of 3 minimalist ceramic plant pots in varying sizes, perfect for indoor plants and succulents.",
       price: 49.99,
       image: "/placeholder.svg?height=300&width=300",
       category: "Home Decor",
@@ -98,31 +105,28 @@ const Store = (props: Props) => {
       rating: 4.9,
       inStock: true,
     },
-  ]
+  ];
 
-  if(isLoading){
-    return <h1>loading</h1>
-  }else{
-    console.log(products)
+  if (isLoading) {
+    return <h1>loading</h1>;
+  } else {
+    console.log(products);
   }
 
-  if(error){
-    return <h1>error</h1>
+  if (error) {
+    return <h1>error</h1>;
   }
+
+  
 
   return (
     <main className="container mx-auto py-8">
-      <h1 className="mb-6 text-2xl font-bold">Featured Products</h1>
-
-      {/* Using your original Grid component with explicit gap control */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
+      <h1 className="mb-6 text-2xl font-bold">Featured Products</h1>      
+      <Grid cols={12} lg={4} md={2}>
         {products!.map((product) => (
-          <ProductCard key={product.id} {...product} />
-          
+          <ProductCard onAddToCart={()=>dispatch(addProdut(product))} key={product.id} {...product} />
         ))}
-        
-      </div>
-
+      </Grid>
     </main>
   );
 };

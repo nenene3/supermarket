@@ -15,11 +15,11 @@ export async function AddDataFireBase(coll: string, data: unknown) {
   }
 }
 
-export async function getCollectionFireBase(coll: string) {
+export async function getCollectionFireBase<T>(coll: string) {
   try {
     const querySnapshot = await getDocs(collection(db, coll));
     return querySnapshot.docs.map((doc) => {
-      return { ...doc.data(), id: doc.id };
+      return { ...doc.data(), id: doc.id } as T;
     });
   } catch (e) {
     throw e;

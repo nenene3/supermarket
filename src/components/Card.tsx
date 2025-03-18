@@ -1,6 +1,8 @@
 import { ShoppingCart } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
+import { ComponentProps } from "react"
+import { ProductType } from "@/features/Products/productForm"
 
 export type ProductCardProps = {
   id: string
@@ -12,7 +14,8 @@ export type ProductCardProps = {
   discount?: number
   rating?: number
   inStock?: boolean
-}
+  onAddToCart:()=>void
+} &ComponentProps<'div'>
 
 export function ProductCard({
   id,
@@ -24,12 +27,13 @@ export function ProductCard({
   discount,
   rating,
   inStock = true,
+  onAddToCart,
+  ...props
 }: ProductCardProps) {
   const discountedPrice = discount ? price - (price * discount) / 100 : price
 
-  
   return (
-    <div className="group relative flex flex-col overflow-hidden rounded-lg border bg-card transition-all hover:shadow-md max-w-full">
+    <div key={id} className={`group relative flex flex-col overflow-hidden rounded-lg border bg-card transition-all hover:shadow-md max-w-full ${props.className ? props.className :''}`} >
       {/* Product image with smaller aspect ratio */}
       <div className="relative aspect-[4/3] overflow-hidden bg-muted">
         <img
@@ -78,7 +82,7 @@ export function ProductCard({
         </div>
 
         {/* Add to cart button with reduced margin */}
-        <Button variant="default" size="sm" className="mt-2 w-full h-8 text-xs px-2" disabled={!inStock}>
+        <Button variant="default" size="sm" className="mt-2 w-full h-8 text-xs px-2" disabled={!inStock} onClick={onAddToCart}>
           <ShoppingCart className="mr-1.5 h-3 w-3" />
           <span>Add to Cart</span>
         </Button>
