@@ -1,0 +1,34 @@
+node_modules/
+dist/
+build/
+.vscode/
+.idea/
+.DS_Store
+*.log
+.env
+.env.local
+.env.development
+.env.production
+.env.test
+
+# TypeScript build artifacts
+*.tsbuildinfo
+
+# Vite cache
+.vite/
+
+# ESLint and Prettier
+.eslintcache
+.prettier*
+
+# Firebase
+firebase-debug.log
+.firebaserc
+.firebase/
+src/config/firebase_config.ts
+# Redux & React Query Cache (if persisted)
+redux/
+react-query-cache.json
+
+# Local storage for Tailwind
+.tailwind/
