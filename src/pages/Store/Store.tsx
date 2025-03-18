@@ -4,11 +4,11 @@ import React from "react";
 import useGetProducts from "@/features/Store/useGetProducts";
 import { ProductType } from "@/features/Products/productForm";
 import { useDispatch, useSelector } from "react-redux";
-import { addProdut,removeProduct } from "@/features/Store/CartSlice";
-
+import { addProdut,removeProduct } from "@/features/Cart/CartSlice";
+import { useAppDispatch,useAppSelector } from "@/hooks";
 const Store = () => {
-  const { products, error, isLoading } = useGetProducts();
-  const cart = useSelector((e)=>e.cart)
+  // const { products, error, isLoading } = useGetProducts();
+  const cart = useAppSelector((e)=>e.cart)
   const dispatch = useDispatch()
   console.log(cart)
 
@@ -107,23 +107,23 @@ const Store = () => {
     },
   ];
 
-  if (isLoading) {
-    return <h1>loading</h1>;
-  } else {
-    console.log(products);
-  }
+  // if (isLoading) {
+  //   return <h1>loading</h1>;
+  // } else {
+  //   console.log(products);
+  // }
 
-  if (error) {
-    return <h1>error</h1>;
-  }
+  // if (error) {
+  //   return <h1>error</h1>;
+  // }
 
   
 
   return (
     <main className="container mx-auto py-8">
       <h1 className="mb-6 text-2xl font-bold">Featured Products</h1>      
-      <Grid cols={12} lg={4} md={2}>
-        {products!.map((product) => (
+      <Grid cols={4} md={4} lg={2} sm={4}>
+        {products2!.map((product) => (
           <ProductCard onAddToCart={()=>dispatch(addProdut(product))} key={product.id} {...product} />
         ))}
       </Grid>

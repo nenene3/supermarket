@@ -16,6 +16,8 @@ import AuthProvider from "./context/AuthProvider";
 import Register from "./pages/Register";
 import AuthLayout from "./layout/AuthLayout";
 import Login from "./pages/LoginPage";
+import ProtectedRoute from "./layout/ProtectedRoute";
+import Cart from "./features/Cart/Cart";
 
 const queryClient = new QueryClient();
 
@@ -30,14 +32,17 @@ createRoot(document.getElementById("root")!).render(
               <Routes>
                 <Route element={<LandingPage />} path="/">
                   <Route index element={<h1>welcome</h1>} />
-                  <Route path="products" element={<Store />} />
+                  <Route element={<ProtectedRoute />}>
+                    <Route path="products" element={<Store />} />
+                    <Route path="cart" element={<Cart/>}/>
+                  </Route>
                 </Route>
                 <Route path="admin" element={<AdminLayout />}>
                   <Route index path="AddProduct" element={<AddProduct />} />
                 </Route>
-                <Route path="auth" element={<AuthLayout/>} >
-                  <Route path="register" element={<Register/>}/>
-                  <Route path="login" element={<Login/>}/>
+                <Route path="auth" element={<AuthLayout />}>
+                  <Route path="register" element={<Register />} />
+                  <Route path="login" element={<Login />} />
                 </Route>
                 <Route path="*" element={<h1>error 404</h1>} />
               </Routes>

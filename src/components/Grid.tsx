@@ -1,31 +1,40 @@
 import React, { ReactNode } from "react";
 
 type Props = {
-  cols: number;
-  sm?: number;
-  md?: number;
-  lg?: number;
-  xl?: number;
+  cols: 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12;
+  sm?: 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12;
+  md?: 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12;
+  lg?: 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12;
+  xl?: 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12;
   className?: string;
   children: ReactNode;
 };
 
-const Grid = ({
-  children,
-  cols = 1,
-  sm,
-  md,
-  lg,
-  xl,
-  className = "",
-}: Props) => {
+// Define a mapping of valid grid column values
+const gridCols: Record<number, string> = {
+  1: "grid-cols-1",
+  2: "grid-cols-2",
+  3: "grid-cols-3",
+  4: "grid-cols-4",
+  5: "grid-cols-5",
+  6: "grid-cols-6",
+  7: "grid-cols-7",
+  8: "grid-cols-8",
+  9: "grid-cols-9",
+  10: "grid-cols-10",
+  11: "grid-cols-11",
+  12: "grid-cols-12",
+};
+
+const Grid: React.FC<Props> = ({ children, cols, sm, md, lg, xl, className = "" }) => {
   return (
     <div
-      className={`grid grid-cols-${cols} ${
-        sm ? `sm:grid-cols-${sm}` : ""
-      } ${md ? `md:grid-cols-${md}` : ""} ${lg ? `lg:grid-cols-${lg}` : ""} ${
-        xl ? `xl:grid-cols-${xl}` : ""
-      } gap-4 ${className}`}
+      className={`grid gap-4 ${gridCols[cols]} 
+        ${sm ? `sm:${gridCols[sm]}` : ""} 
+        ${md ? `md:${gridCols[md]}` : ""} 
+        ${lg ? `lg:${gridCols[lg]}` : ""} 
+        ${xl ? `xl:${gridCols[xl]}` : ""} 
+        ${className}`}
     >
       {children}
     </div>

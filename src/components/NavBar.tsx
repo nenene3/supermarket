@@ -9,16 +9,18 @@ type Props = {};
 const NavBar = (props: Props) => {
   const { user, loading } = useAuthContext();
 
+  if (loading) {
+    return <></>;
+  }
+
   return (
     <header className="flex h-12 items-center gap-4 bg-amber-500 dark:bg-gray-800">
       <Heart />
       <h1 className="text-2xl"> supermraket</h1>
       <nav className="flex items-center justify-between gap-2">
         <div className="flex gap-4">
-          <NavLink to={"/learn"}>Learn</NavLink>
-          <NavLink to={"/Support"}>Support</NavLink>
-          <NavLink to={"/Download"}>Download</NavLink>
-          <NavLink to={"/Safety"}>Safety</NavLink>
+          <NavLink to={"/products"}>products</NavLink>
+          <NavLink to={"/Cart"}>cart</NavLink>
         </div>
       </nav>
       {/* <div className="ml-auto flex gap-2">
@@ -26,8 +28,8 @@ const NavBar = (props: Props) => {
         <Button>sign up</Button>
         <ModeToggle />
       </div> */}
-      <div className="ml-auto flex gap-2 items-center">
-        {!loading && (user ? (
+      <div className="ml-auto flex items-center gap-2">
+        {user ? (
           <h1 className="">welcome {user.email}</h1>
         ) : (
           <>
@@ -38,7 +40,7 @@ const NavBar = (props: Props) => {
               <NavLink to={"/auth/login"}>sign in</NavLink>
             </Button>
           </>
-        ))}
+        )}
         <ModeToggle />
       </div>
     </header>

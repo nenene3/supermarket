@@ -8,8 +8,7 @@ const index = (props: Props) => {
   return (
     <div className=''>
         <NavBar/>
-        <div className='container mx-auto mt-2'>
-
+        <div className='container mx-auto'>
         <Outlet/>
         </div>
     </div>
